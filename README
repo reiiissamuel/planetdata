@@ -1,0 +1,61 @@
+************PlanetData***Api***README*******
+
+
+Testes
+
+	-Adicionar novo planeta.
+		http metodo: POST
+		Url: localhost:8081/planets
+		Body: planet json
+		json sample: {"name":"Tatooine","climate":"temperate, tropical","terrain":"jungle, rainforests"}
+		
+	-Excluir planeta.
+		http metodo: DELETE
+		Url: localhost:8081/planets/{id do planeta}
+		Path: id do planeta
+		
+	-Retornar planeta pelo nome.
+		http metodo: GET
+		Url: localhost:8081/planets/byname/{nome do planeta}
+		Path: nome do planeta
+		
+	-Retornar planeta pelo Id
+		http metodo: GET
+		Url: localhost:8081/planets/{id do planeta}
+		Path: id do planeta
+
+Descrição de classes
+
+	base=com/reiiissamuel/planetdata/planetData
+	-base/
+		PlanetDataApplication -> Classe principal.
+	-base/config
+		AppConfigProperties -> Classe modelo para retornar a url, descrito no application.properties, da swapi para uma variavel.
+		BeansConfig -> Classe origem para ingeção de dependencias(@Autowired).
+	-base/entity 
+		Planet -> Classe modelo dos dados dos planetas a serem persistidos na base de dados.
+	-base/exceptions
+		CustomErrorDetais -> Classe modelo das informações de possíveis erros a serem retornados ao usuário.
+		CustomGlobalException -> Classe para definicão e customização de possíveis erros na aplicação.
+		NotAStarWarsPlanetException -> (Não está sendo utilizada no projeto)Classe de definição de excessão na tentativa de inserir um planeta que não pertence ao universo StarWars.
+		PlanetExistsException -> Classe de definição de excessão na tentativa de inserir um planeta que já está cadastrado na base.
+		PlanetnameNotFoundException -> Classe de definição de excessão na tentativa de retornar um planeta através de um nome desconhecido na base de dados.
+		PlanetNotFoundException -> Classe de definição de excessão na tentativa de retornar um planeta através de um ID desconhecido na base de dados.
+	-base/repositories 
+		PlanetRepository -> Interface do repositório mongoDB dos planetas.
+	-base/restControllers
+		PlanetResource -> Classe que contem os metodos para controle das requisições http.
+	-base/service
+		PlanetServiceSpecification -> Interface com as definições dos serviços. 
+		PlanetServiceImpl -> Classe que implementa os serviços definidos na interface planetServiceSpecification.
+		StarWarsApiService -> Classe responsável por acessar a SWAPI para que atraves de nome do planeta, passado a um metodo da classe, consigamos a quantidade de filmes em que o planeta esteve.
+	-base/utils
+		IdGenerator -> Classe com um metodo que retorno um id gerado para inserir no planeta modelo antes de inseri-lo na base de dados.
+
+Componentes(Maven)
+	-jackson-databind
+	-spring-boot-starter-validation
+	-pring-boot-starter-data-mongodb
+	-spring-boot-starter-web
+	-spring-boot-devtools
+	-spring-boot-starter-hateoas
